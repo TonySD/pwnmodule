@@ -1,0 +1,55 @@
+I am solving the PWN CTF challenge. I want you to write python interface for me on pwntools library. Also add types to args, if you are unsure, set the bytes type. Here is your example:
+Service (< is responses from server, and > is my answers, these arrows was not in packets):
+```
+{'sender': 'server', 'data': 'Choose:\n\t1 - allocate mem print and free\n\t2 - print name\n\t3 - delete\n\t4 - edit\n'}
+{'sender': 'user', 'data': '1'}
+{'sender': 'server', 'data': 'Size?\n'}
+{'sender': 'user', 'data': '12'}
+{'sender': 'server', 'data': 'enter name:\n'}
+{'sender': 'user', 'data': 'adasdasd'}
+{'sender': 'server', 'data': 'Choose:\n\t1 - allocate mem print and free\n\t2 - print name\n\t3 - delete\n\t4 - edit\n'}
+{'sender': 'user', 'data': '2'}
+{'sender': 'server', 'data': 'Index?\n'}
+{'sender': 'user', 'data': '0'}
+{'sender': 'server', 'data': 'adasdasd\nChoose:\n\t1 - allocate mem print and free\n\t2 - print name\n\t3 - delete\n\t4 - edit\n'}
+{'sender': 'user', 'data': '3'}
+{'sender': 'server', 'data': 'Index?\n'}
+{'sender': 'user', 'data': '0'}
+{'sender': 'server', 'data': 'Choose:\n\t1 - allocate mem print and free\n\t2 - print name\n\t3 - delete\n\t4 - edit\n'}
+{'sender': 'user', 'data': '1'}
+{'sender': 'server', 'data': 'Size?\n'}
+{'sender': 'user', 'data': '12'}
+{'sender': 'server', 'data': 'enter name:\n'}
+{'sender': 'user', 'data': 'asdasd'}
+{'sender': 'server', 'data': 'Choose:\n\t1 - allocate mem print and free\n\t2 - print name\n\t3 - delete\n\t4 - edit\n'}
+{'sender': 'user', 'data': '4'}
+{'sender': 'server', 'data': 'Index?\n'}
+{'sender': 'user', 'data': '0'}
+{'sender': 'user', 'data': 'asdasdasd'}
+```
+And the example of interface, that i want from you (don't use it in your output!):
+```
+def allocate(size: int, data: bytes):
+    io.sendlineafter(b"4 - edit\n", b"1")
+    io.sendlineafter(b"Size?\n", b"%d" % size)
+    io.sendlineafter(b"enter name:\n", data)
+
+def print_name(index: int):
+    io.sendlineafter(b"4 - edit\n", b"2")
+    io.sendlineafter(b"Index?\n", b"%d" % index)
+
+def delete(index: int):
+    io.sendlineafter(b"4 - edit\n", b"3")
+    io.sendlineafter(b"Index?\n", b"%d" % index)
+
+def edit(index: int, data: bytes):
+    io.sendlineafter(b"4 - edit\n", b"4")
+    io.sendlineafter(b"Index?\n", b"%d" % index)
+    io.sendafter(b"enter name:\n", data)
+```
+
+Do such thing for this challenge (write only code of functions as response):
+```
+{}
+```
+Please, write only code, I will parse your response. Your task is write interface for me, don't solve the CTF task itself
